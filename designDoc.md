@@ -28,8 +28,10 @@ Different service classes take requests and modify the database accordingly.
 
 ### Architecture - Classes
 `GoBank` with main function accepting request and delegating to handler  
-`RequestHandler` processing incoming requests  
-tba
+`RequestHandler` processing incoming requests, started as goroutine  
+tba  
+`UserManagementService` for managing all the users, channel passed to each handler goroutine to send requests  
+`ClaimManagementService` for managing all the claims, channel passed to each handler goroutine to send requests
 
 
 ### API Endpoints
@@ -46,7 +48,7 @@ tba
 - `/claim/<id>/interest` set interest
 
 ##### GET
-- `/dashboard` general account data
+- `/` general account data
 - `/claim/<id>` information about a claim
 
 
