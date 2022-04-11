@@ -23,13 +23,14 @@ Users can:
 
 ### Architecture - High Level
 Main function accepting all requests and dispatching them to a handler in a Goroutine.
-Different service classes take requests and modify the database accordingly.
+Different service classes take requests through channels from the handlers and modify the database accordingly.
 
 
 ### Architecture - Classes
-`GoBank` with main function accepting request and delegating to handler  
+`GoBank` calling GoBankServer's main function 
+`GoBankServer` with main function accepting request and delegating to handler, initializes service classes
 `RequestHandler` processing incoming requests, started as goroutine  
-tba  
+
 `UserManagementService` for managing all the users, channel passed to each handler goroutine to send requests  
 `ClaimManagementService` for managing all the claims, channel passed to each handler goroutine to send requests
 
@@ -38,7 +39,7 @@ tba
 
 ##### POST
 - `/signup` create a new account
-- `/login` authenticate with account
+- `/login` authenticate with account -> get token to authenticate
 - `/claim` file a new claim
 - `/claim/<id>/approve` approve a claim
 - `/claim/<id>/deny` deny a claim
@@ -54,6 +55,40 @@ tba
 
 ### Database Schema
 
+---
 
+##### Users
+username: String - **PK**  
+password: String  
+email: String  
+
+---
+
+##### Loans  
+id: Int - **PK**  
+fromUser: username from UserTable - **FK**    
+toUser: username from UserTable - **FK**    
+date: Int    
+amount: Int
+interest: Double  
+status: String  
+
+---
+
+##### OpenBoard
+openID: Int
+fromUser:  username from UserTable - **FK**  
+toUser:  username from UserTable - **FK**  
+loan:  id from LoanTable - **FK**
+
+---
+
+##### CloseBoard
+closeID: Int
+fromUser:  username from UserTable - **FK**  
+toUser:  username from UserTable - **FK**  
+loan:  id from LoanTable - **FK**
+
+---
 
 
