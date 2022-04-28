@@ -1,11 +1,48 @@
 package main
 
-import "fmt"
+import (
+	"database/sql"
+	"fmt"
+	"github.com/go-sql-driver/mysql"
+)
 
 func main() {
-	fmt.Println("Hello!")
+	fmt.Println("Starting GoBank Server...")
+	db, err := setUpAndTestDBConnection()
+	if err != nil {
+		fmt.Printf("There was a problem connecting to the database: %s", err.Error())
+		fmt.Println("Shutting down...")
+		return
+	}
+	//TODO initialize UserManagementService and ClaimManagementService
+	fmt.Println(db)
+}
 
-	// test DB stuff
+func setUpAndTestDBConnection() (*sql.DB, error) {
+	cfg := mysql.Config{
+		User:   "root",
+		Passwd: "",
+		Net:    "tcp",
+		Addr:   "127.0.0.1:3306",
+		DBName: "gobank",
+	}
+	// Get a database handle.
+	var err error
+	db, err = sql.Open("mysql", cfg.FormatDSN())
+	if err != nil {
+		return nil, err
+	}
+
+	pingErr := db.Ping()
+	if pingErr != nil {
+		return nil, pingErr
+	}
+	fmt.Println("Connected to database successfully")
+	return db, nil
+}
+
+// delete later
+func testDB() {
 	connectToDB()
 	users, err := loadAllUsers()
 	if err == nil {
