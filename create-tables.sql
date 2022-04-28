@@ -1,4 +1,9 @@
 DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS loans;
+DROP TABLE IF EXISTS openBoard;
+DROP TABLE IF EXISTS closeBoard;
+
+
 CREATE TABLE users (
     username       VARCHAR(256) NOT NULL,
     password       VARCHAR(256) NOT NULL,
@@ -7,7 +12,6 @@ CREATE TABLE users (
     UNIQUE (username, email)
 );
 
-DROP TABLE IF EXISTS loans;
 CREATE TABLE loans (
     id          INT AUTO_INCREMENT NOT NULL,
     fromUser    VARCHAR(256) NOT NULL,
@@ -22,7 +26,6 @@ CREATE TABLE loans (
     FOREIGN KEY (toUser) REFERENCES users(username)
 );
 
-DROP TABLE IF EXISTS openBoard;
 CREATE TABLE openBoard (
     openID      INT AUTO_INCREMENT NOT NULL,
     fromUser    VARCHAR(256) NOT NULL,
@@ -34,7 +37,6 @@ CREATE TABLE openBoard (
     FOREIGN KEY (loan) REFERENCES loans(id)
 );
 
-DROP TABLE IF EXISTS closeBoard;
 CREATE TABLE closeBoard (
     closeID     INT AUTO_INCREMENT NOT NULL,
     fromUser    VARCHAR(256) NOT NULL,
@@ -46,5 +48,14 @@ CREATE TABLE closeBoard (
     FOREIGN KEY (loan) REFERENCES loans(id)
 );
 
+
+-- test populate database
+
+INSERT INTO users
+    (username, password, email)
+VALUES
+    ('fed', 'fedmaster64', 'fed@gov.com'),
+    ('pomp', 'btcftw', 'pomp@motorboys.com'),
+    ('michael', 'ALLIN81', 'saylor@microstrategy.com');
 
 

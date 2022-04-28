@@ -17,7 +17,7 @@ Users can:
 - Set a deadline for a claim
 
 ## Milestones
-1. Set up database with schema and connect to it via code in Go
+1. ~~Set up database with schema and connect to it via code in Go~~
 2. Set up GoBank file and GoBankServer file with main function listening for requests
 3. Set up RequestsHandler file
 4. Set up UserManagementService & ClaimManagementService files
