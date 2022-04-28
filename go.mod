@@ -1,3 +1,3 @@
-module GoBank-API
+module gobank.com
 
 go 1.17

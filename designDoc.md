@@ -73,22 +73,22 @@ id: Int - **PK**
 fromUser: username from UserTable - **FK**    
 toUser: username from UserTable - **FK**    
 date: Int    
-amount: Int
+amount: Int  
 interest: Double  
 status: String  
 
 ---
 
 ##### OpenBoard
-openID: Int
+openID: Int  
 fromUser:  username from UserTable - **FK**  
 toUser:  username from UserTable - **FK**  
-loan:  id from LoanTable - **FK**
+loan:  id from LoanTable - **FK**  
 
 ---
 
 ##### CloseBoard
-closeID: Int
+closeID: Int  
 fromUser:  username from UserTable - **FK**  
 toUser:  username from UserTable - **FK**  
 loan:  id from LoanTable - **FK**
