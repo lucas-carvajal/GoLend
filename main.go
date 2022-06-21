@@ -14,6 +14,7 @@ func main() {
 		fmt.Println("Shutting down...")
 		return
 	}
+
 	//TODO initialize UserManagementService and ClaimManagementService
 	fmt.Println(db)
 }
