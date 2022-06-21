@@ -17,10 +17,13 @@ func main() {
 
 	//TODO initialize UserManagementService and ClaimManagementService
 	fmt.Println(db)
+	runServer()
 }
 
 func setUpAndTestDBConnection() (*sql.DB, error) {
 	cfg := mysql.Config{
+		//User:   os.Getenv("DBUSER"),
+		//Passwd: os.Getenv("DBPASS"),
 		User:   "root",
 		Passwd: "",
 		Net:    "tcp",
@@ -43,16 +46,16 @@ func setUpAndTestDBConnection() (*sql.DB, error) {
 }
 
 // delete later
-func testDB() {
-	connectToDB()
-	users, err := loadAllUsers()
-	if err == nil {
-		fmt.Println("USERS:")
-		for _, user := range users {
-			fmt.Printf("Username: %s\n", user.username)
-			fmt.Printf("Password: %s\n", user.password)
-			fmt.Printf("Email: %s\n", user.email)
-			fmt.Println("===")
-		}
-	}
-}
+//func testDB() {
+//	connectToDB()
+//	users, err := loadAllUsers()
+//	if err == nil {
+//		fmt.Println("USERS:")
+//		for _, user := range users {
+//			fmt.Printf("Username: %s\n", user.username)
+//			fmt.Printf("Password: %s\n", user.password)
+//			fmt.Printf("Email: %s\n", user.email)
+//			fmt.Println("===")
+//		}
+//	}
+//}
