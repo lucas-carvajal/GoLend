@@ -1,5 +1,7 @@
 package main
 
+//TODO can be deleted later on
+
 import (
 	"database/sql"
 	"fmt"

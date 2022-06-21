@@ -1,5 +1,15 @@
 package main
 
-func run() {
-	// TODO accept connections and handle them in goroutines
+import (
+	"log"
+	"net/http"
+)
+
+func runServer() {
+	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		// TODO call handler function
+		//go handler(w, r)
+	})
+
+	log.Fatal(http.ListenAndServe(":8080", nil))
 }
