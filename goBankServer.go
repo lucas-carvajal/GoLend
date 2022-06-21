@@ -7,8 +7,7 @@ import (
 
 func runServer() {
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		// TODO call handler function
-		//go handler(w, r)
+		go handleRequest(w, r)
 	})
 
 	log.Fatal(http.ListenAndServe(":8080", nil))
