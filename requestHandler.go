@@ -54,10 +54,6 @@ func handleRequest(w http.ResponseWriter, r *http.Request) {
 		// TODO return error message
 		return
 	}
-	fmt.Println(r.URL)
-	fmt.Println("+++=========================+++")
-
-	// TODO handle different routes
 }
 
 func doSomething(w http.ResponseWriter, r *http.Request) {
