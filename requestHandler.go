@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"gobank.com/utilities"
+	"gobank.com/util"
 	"net/http"
 	"strings"
 )
@@ -43,7 +43,7 @@ func handleRequest(w http.ResponseWriter, r *http.Request) {
 		case strings.Contains(url, "/interest"):
 			doSomething(w, r)
 			return
-		case !strings.Contains(utilities.RemoveFirstUrlPathElement(url), "/"):
+		case !strings.Contains(util.RemoveFirstUrlPathElement(url), "/"):
 			doSomething(w, r)
 			return
 		default:
