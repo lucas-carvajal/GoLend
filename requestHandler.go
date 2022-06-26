@@ -12,7 +12,6 @@ func handleRequest(w http.ResponseWriter, r *http.Request) {
 	urlParts = util.Filter(urlParts, func(s string) bool {
 		return s != ""
 	})
-	//TODO remove "" from urlParts
 	switch {
 	case len(urlParts) == 0:
 		// default route "/"
