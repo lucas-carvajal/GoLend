@@ -21,10 +21,3 @@ and their overall balance.
 
 ### Disclaimers
 No disclaimers yet  
-
-
----
-
-### TODOS
-
-* bla

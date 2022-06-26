@@ -21,7 +21,8 @@ Users can:
 2. Set up GoBank file and GoBankServer file with main function listening for requests
 3. Set up RequestsHandler file
 4. Set up UserManagementService & ClaimManagementService files
-5. Implement all functionality to satisfy goals
+5. Set up authentication
+6. Implement all functionality to satisfy goals
 
 ## Proposed Solution
 
