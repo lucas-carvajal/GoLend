@@ -2,9 +2,9 @@ package main
 
 import (
 	"fmt"
+	"gobank.com/utilities"
 	"net/http"
 	"strings"
-	"utilities"
 )
 
 func handleRequest(w http.ResponseWriter, r *http.Request) {
