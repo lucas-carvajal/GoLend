@@ -1,11 +1,16 @@
 package userManagement
 
-import "fmt"
+import (
+	"database/sql"
+	"fmt"
+)
 
 var channel chan string
+var db *sql.DB
 
-func Init() chan string {
+func Init(inputDb *sql.DB) chan string {
 	channel = make(chan string)
+	db = inputDb
 
 	go run()
 
@@ -15,6 +20,7 @@ func Init() chan string {
 func run() {
 	for in := range channel {
 		fmt.Println("[Channel] Message received: ", in)
+
 	}
 	fmt.Println("[Channel] Closed")
 }
