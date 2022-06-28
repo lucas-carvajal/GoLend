@@ -16,14 +16,10 @@ func main() {
 		return
 	}
 
-	userManagementService := userManagement.Init()
-
-	userManagementService <- "First message :)"
-	close(userManagementService)
-
+	userManagementServiceChannel := userManagement.Init(db)
 	//TODO initialize ClaimManagementService
-	fmt.Println(db)
-	runServer()
+
+	runServer(userManagementServiceChannel)
 }
 
 func setUpAndTestDBConnection() (*sql.DB, error) {

@@ -5,11 +5,11 @@ import (
 	"fmt"
 )
 
-var channel chan string
+var channel chan Request
 var db *sql.DB
 
-func Init(inputDb *sql.DB) chan string {
-	channel = make(chan string)
+func Init(inputDb *sql.DB) chan Request {
+	channel = make(chan Request)
 	db = inputDb
 
 	go run()
@@ -19,8 +19,15 @@ func Init(inputDb *sql.DB) chan string {
 
 func run() {
 	for in := range channel {
-		fmt.Println("[Channel] Message received: ", in)
+		fmt.Println("[UserManagementService Channel] Message received with command: ", in.Command)
+
+		switch in.Command {
+		case "SIGNUP":
+			handleSignup(in)
+		case "LOGIN":
+			handleLogin(in)
+		}
 
 	}
-	fmt.Println("[Channel] Closed")
+	fmt.Println("[UserManagementService Channel] Closed")
 }

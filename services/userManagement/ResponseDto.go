@@ -7,9 +7,9 @@ const (
 	error                 = "ERROR"
 )
 
-type userManagementResponse struct {
-	id      int
-	status  statusMessage
-	message string
-	token   string
+type Response struct {
+	Id      int
+	Status  statusMessage
+	Message string
+	Token   string
 }

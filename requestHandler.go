@@ -2,12 +2,17 @@ package main
 
 import (
 	"fmt"
+	"gobank.com/services/userManagement"
 	"gobank.com/util"
 	"net/http"
 	"strings"
 )
 
-func handleRequest(w http.ResponseWriter, r *http.Request) {
+func handleRequest(
+	w http.ResponseWriter,
+	r *http.Request,
+	userMgmChan chan userManagement.Request,
+) {
 	urlParts := strings.Split(r.URL.String(), "/")
 	urlParts = util.Filter(urlParts, func(s string) bool {
 		return s != ""
@@ -20,10 +25,18 @@ func handleRequest(w http.ResponseWriter, r *http.Request) {
 	case urlParts[0] == "signup":
 		// signup route "/signup"
 		doSomething(w, r)
+		userMgmChan <- userManagement.Request{
+			Id:      1,
+			Command: "SIGNUP",
+		}
 		return
 	case urlParts[0] == "login":
 		// login route "/login"
 		doSomething(w, r)
+		userMgmChan <- userManagement.Request{
+			Id:      1,
+			Command: "LOGIN",
+		}
 		return
 	case urlParts[0] == "claim" && len(urlParts) == 1:
 		// claim route "/claim" -> file a claim

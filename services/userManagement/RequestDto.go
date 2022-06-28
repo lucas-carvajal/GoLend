@@ -7,11 +7,11 @@ const (
 	login                        = "LOGIN"
 )
 
-type userManagementRequest struct {
-	id              int
-	command         userManagementCommand
-	email           string
-	password        string
-	token           string
-	responseChannel chan userManagementResponse
+type Request struct {
+	Id              int
+	Command         userManagementCommand
+	Email           string
+	Password        string
+	Token           string
+	ResponseChannel chan Response
 }
