@@ -7,15 +7,9 @@ const (
 	error                 = "ERROR"
 )
 
-type signupResponse struct {
+type userManagementResponse struct {
 	id      int
 	status  statusMessage
 	message string
-}
-
-type loginResponse struct {
-	id      int
-	status  statusMessage
-	message string
-	// TODO add token
+	token   string
 }
