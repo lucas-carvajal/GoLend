@@ -11,11 +11,28 @@ func handleSignup(dto Request) {
 			Message: fmt.Sprintf("user with email '%s' already exists", dto.Email),
 			Token:   "",
 		}
+		return
 	}
-	// TODO insert new user into db
-
-	// TODO return response
-
+	success := insertUser(user{
+		username: dto.Username,
+		email:    dto.Email,
+		password: dto.Password,
+	})
+	if !success {
+		dto.ResponseChannel <- Response{
+			Id:      dto.Id,
+			Status:  "ERROR",
+			Message: fmt.Sprintf("user with email '%s' could not be saved", dto.Email),
+			Token:   "",
+		}
+		return
+	}
+	dto.ResponseChannel <- Response{
+		Id:      dto.Id,
+		Status:  "SUCCESS",
+		Message: fmt.Sprintf("user with email '%s' successfully created", dto.Email),
+		Token:   "",
+	}
 }
 
 func handleLogin(dto Request) {

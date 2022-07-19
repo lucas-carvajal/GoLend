@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"gobank.com/services/userManagement"
 	"gobank.com/util"
+	"math/rand"
 	"net/http"
 	"strings"
 )
@@ -24,11 +25,16 @@ func handleRequest(
 		return
 	case urlParts[0] == "signup":
 		// signup route "/signup"
-		doSomething(w, r)
+		responseChannel := make(chan userManagement.Response)
 		userMgmChan <- userManagement.Request{
-			Id:      1,
-			Command: "SIGNUP",
+			Id:              rand.Intn(1000000),
+			Command:         "SIGNUP",
+			Username:        r.Header.Get("username"),
+			Email:           r.Header.Get("email"),
+			Password:        r.Header.Get("password"),
+			ResponseChannel: responseChannel,
 		}
+		handleSignupResponse(responseChannel)
 		return
 	case urlParts[0] == "login":
 		// login route "/login"
@@ -84,4 +90,8 @@ func handleRequest(
 
 func doSomething(w http.ResponseWriter, r *http.Request) {
 	fmt.Printf("Call to %s\n", r.URL.String())
+}
+
+func handleSignupResponse(responseChannel chan userManagement.Response) {
+	// TODO receive response and send response to client
 }

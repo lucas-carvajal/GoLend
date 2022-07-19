@@ -35,3 +35,12 @@ func queryUsers(query string) []user {
 	}
 	return users
 }
+
+func insertUser(user user) bool {
+	_, err := db.Exec("INSERT INTO users (username, password, email) VALUES (?, ?, ?)",
+		user.username, user.password, user.email)
+	if err != nil {
+		return false
+	}
+	return true
+}

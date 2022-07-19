@@ -10,6 +10,7 @@ const (
 type Request struct {
 	Id              int
 	Command         userManagementCommand
+	Username        string
 	Email           string
 	Password        string
 	Token           string
