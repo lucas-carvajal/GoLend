@@ -9,7 +9,7 @@ type user struct {
 }
 
 func getUsersByEmail(email string) []user {
-	query := fmt.Sprintf("SELECT * FROM users WHERE email = %s", email)
+	query := fmt.Sprintf("SELECT * FROM users WHERE email = '%s'", email)
 	return queryUsers(query)
 }
 
