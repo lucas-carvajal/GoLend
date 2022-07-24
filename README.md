@@ -8,7 +8,7 @@ Users can file claims, accept and deny claims, manage their claims
 and their overall balance.
 
 ### How to use it?
-1. Create a MySQL database named gobank
+1. Create a MySQL database named golend
 2. Apply the `create-tables.sql` file to it e.g.  
     `source /path/to/file/on/my/computer/create-tables.sql`
 3. Have {user: 'root'} with {password: ''} in MySQL, otherwise change the configuration in the
