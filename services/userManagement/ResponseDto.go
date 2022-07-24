@@ -8,7 +8,8 @@ const (
 )
 
 type Response struct {
-	Id      int
+	Id int
+	//TODO refactor to http status code
 	Status  statusMessage
 	Message string
 	Token   string
