@@ -13,6 +13,16 @@ func handleSignup(dto Request) {
 		}
 		return
 	}
+	users = getUsersByUsername(dto.Username)
+	if len(users) != 0 {
+		dto.ResponseChannel <- Response{
+			Id:      dto.Id,
+			Status:  "ERROR",
+			Message: fmt.Sprintf("user with username '%s' already exists", dto.Username),
+			Token:   "",
+		}
+		return
+	}
 	success := insertUser(user{
 		username: dto.Username,
 		email:    dto.Email,

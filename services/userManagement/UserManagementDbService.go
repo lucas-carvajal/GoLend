@@ -13,6 +13,11 @@ func getUsersByEmail(email string) []user {
 	return queryUsers(query)
 }
 
+func getUsersByUsername(username string) []user {
+	query := fmt.Sprintf("SELECT * FROM users WHERE username = '%s'", username)
+	return queryUsers(query)
+}
+
 func queryUsers(query string) []user {
 	var users []user
 	rows, err := db.Query(query)
