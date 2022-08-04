@@ -3,6 +3,7 @@ package userManagement
 import "fmt"
 
 func handleSignup(dto Request) {
+	// TODO refactor checks
 	users := getUsersByEmail(dto.Email)
 	if len(users) != 0 {
 		dto.ResponseChannel <- Response{
@@ -47,7 +48,42 @@ func handleSignup(dto Request) {
 
 func handleLogin(dto Request) {
 	//TODO
-	// check if user with email exists
-	// check if password matches
-	// return response with auth token
+	users := getUsersByEmail(dto.Email)
+	if len(users) != 1 {
+		dto.ResponseChannel <- Response{
+			Id:      dto.Id,
+			Status:  "ERROR",
+			Message: fmt.Sprintf("user with email '%s' does not exist", dto.Email),
+			Token:   "",
+		}
+		return
+	}
+	users = getUsersByUsername(dto.Username)
+	if len(users) != 1 {
+		dto.ResponseChannel <- Response{
+			Id:      dto.Id,
+			Status:  "ERROR",
+			Message: fmt.Sprintf("user with username '%s' does not exist", dto.Username),
+			Token:   "",
+		}
+		return
+	}
+	sucess := users[0].password == dto.Password
+
+	if !sucess {
+		dto.ResponseChannel <- Response{
+			Id:      dto.Id,
+			Status:  "ERROR",
+			Message: fmt.Sprintf("Password for user '%s' does not match", dto.Username),
+			Token:   "",
+		}
+		return
+	}
+	// TODO generate auth token and save to redis
+	dto.ResponseChannel <- Response{
+		Id:      dto.Id,
+		Status:  "SUCCESS",
+		Message: fmt.Sprintf("Login for user '%s' successful", dto.Username),
+		Token:   "tbd",
+	}
 }

@@ -15,18 +15,12 @@ func handleSignup(
 	userMgmChan chan userManagement.Request,
 ) {
 	username, email, password := r.Header.Get("username"), r.Header.Get("email"), r.Header.Get("password")
-	if username == "" {
-		sendErrorResponse(w, "Username was empty", http.StatusBadRequest)
+	ok, errMsg := checkEmailNamePassword(email, username, password)
+	if !ok {
+		sendErrorResponse(w, errMsg, http.StatusBadRequest)
 		return
 	}
-	if email == "" {
-		sendErrorResponse(w, "Email was empty", http.StatusBadRequest)
-		return
-	}
-	if password == "" {
-		sendErrorResponse(w, "Password was empty", http.StatusBadRequest)
-		return
-	}
+
 	responseChannel := make(chan userManagement.Response)
 	userMgmChan <- userManagement.Request{
 		Id:              rand.Intn(1000000),
@@ -36,8 +30,14 @@ func handleSignup(
 		Password:        password,
 		ResponseChannel: responseChannel,
 	}
-	handleSignupResponse(responseChannel, w)
-	return
+
+	response := <-responseChannel
+	switch response.Status {
+	case "SUCCESS":
+		sendSuccessResponse(w, http.StatusOK)
+	case "ERROR":
+		sendErrorResponse(w, response.Message, http.StatusBadRequest)
+	}
 }
 
 func handleLogin(
@@ -45,7 +45,30 @@ func handleLogin(
 	r *http.Request,
 	userMgmChan chan userManagement.Request,
 ) {
-	// TODO
+	username, email, password := r.Header.Get("username"), r.Header.Get("email"), r.Header.Get("password")
+	ok, errMsg := checkEmailNamePassword(email, username, password)
+	if !ok {
+		sendErrorResponse(w, errMsg, http.StatusBadRequest)
+		return
+	}
+
+	responseChannel := make(chan userManagement.Response)
+	userMgmChan <- userManagement.Request{
+		Id:              rand.Intn(1000000),
+		Command:         "LOGIN",
+		Username:        username,
+		Email:           email,
+		Password:        password,
+		ResponseChannel: responseChannel,
+	}
+
+	response := <-responseChannel
+	switch response.Status {
+	case "SUCCESS":
+		sendSuccessResponseWithToken(w, http.StatusOK, response.Token)
+	case "ERROR":
+		sendErrorResponse(w, response.Message, http.StatusBadRequest)
+	}
 }
 
 func handleClaims(
@@ -121,16 +144,6 @@ func doSomething(w http.ResponseWriter, r *http.Request) {
 	fmt.Printf("Call to %s\n", r.URL.String())
 }
 
-func handleSignupResponse(responseChannel chan userManagement.Response, w http.ResponseWriter) {
-	response := <-responseChannel
-	switch response.Status {
-	case "SUCCESS":
-		sendSuccessResponse(w, http.StatusOK)
-	case "ERROR":
-		sendErrorResponse(w, response.Message, http.StatusBadRequest)
-	}
-}
-
 func sendSuccessResponse(w http.ResponseWriter, statusCode int) {
 	w.WriteHeader(statusCode)
 }
@@ -143,4 +156,17 @@ func sendSuccessResponseWithToken(w http.ResponseWriter, statusCode int, token s
 func sendErrorResponse(w http.ResponseWriter, message string, statusCode int) {
 	w.WriteHeader(statusCode)
 	w.Write([]byte(message))
+}
+
+func checkEmailNamePassword(email, username, password string) (bool, string) {
+	if username == "" {
+		return false, "Username was empty"
+	}
+	if email == "" {
+		return false, "Email was empty"
+	}
+	if password == "" {
+		return false, "Password was empty"
+	}
+	return true, ""
 }
