@@ -34,9 +34,9 @@ func handleSignup(
 	response := <-responseChannel
 	switch {
 	case response.Status > 399:
-		sendSuccessResponse(w, http.StatusOK)
+		sendErrorResponse(w, response.Message, response.Status)
 	case response.Status < 210:
-		sendErrorResponse(w, response.Message, http.StatusBadRequest)
+		sendSuccessResponse(w, response.Status)
 	}
 }
 
@@ -65,9 +65,9 @@ func handleLogin(
 	response := <-responseChannel
 	switch {
 	case response.Status > 399:
-		sendErrorResponse(w, response.Message, http.StatusBadRequest)
+		sendErrorResponse(w, response.Message, response.Status)
 	case response.Status < 210:
-		sendSuccessResponseWithToken(w, http.StatusOK, response.Token)
+		sendSuccessResponseWithToken(w, response.Status, response.Token)
 	}
 }
 
