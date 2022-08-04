@@ -6,7 +6,6 @@ import (
 )
 
 func handleSignup(dto Request) {
-	// TODO refactor checks
 	users := getUsersByEmail(dto.Email)
 	if len(users) != 0 {
 		dto.ResponseChannel <- Response{
