@@ -1,6 +1,9 @@
 package userManagement
 
-import "fmt"
+import (
+	"fmt"
+	"net/http"
+)
 
 func handleSignup(dto Request) {
 	// TODO refactor checks
@@ -8,7 +11,7 @@ func handleSignup(dto Request) {
 	if len(users) != 0 {
 		dto.ResponseChannel <- Response{
 			Id:      dto.Id,
-			Status:  "ERROR",
+			Status:  http.StatusBadRequest,
 			Message: fmt.Sprintf("user with email '%s' already exists", dto.Email),
 			Token:   "",
 		}
@@ -18,7 +21,7 @@ func handleSignup(dto Request) {
 	if len(users) != 0 {
 		dto.ResponseChannel <- Response{
 			Id:      dto.Id,
-			Status:  "ERROR",
+			Status:  http.StatusBadRequest,
 			Message: fmt.Sprintf("user with username '%s' already exists", dto.Username),
 			Token:   "",
 		}
@@ -32,7 +35,7 @@ func handleSignup(dto Request) {
 	if !success {
 		dto.ResponseChannel <- Response{
 			Id:      dto.Id,
-			Status:  "ERROR",
+			Status:  http.StatusInternalServerError,
 			Message: fmt.Sprintf("user with email '%s' could not be saved", dto.Email),
 			Token:   "",
 		}
@@ -40,19 +43,18 @@ func handleSignup(dto Request) {
 	}
 	dto.ResponseChannel <- Response{
 		Id:      dto.Id,
-		Status:  "SUCCESS",
+		Status:  http.StatusOK,
 		Message: fmt.Sprintf("user with email '%s' successfully created", dto.Email),
 		Token:   "",
 	}
 }
 
 func handleLogin(dto Request) {
-	//TODO
 	users := getUsersByEmail(dto.Email)
 	if len(users) != 1 {
 		dto.ResponseChannel <- Response{
 			Id:      dto.Id,
-			Status:  "ERROR",
+			Status:  http.StatusBadRequest,
 			Message: fmt.Sprintf("user with email '%s' does not exist", dto.Email),
 			Token:   "",
 		}
@@ -62,7 +64,7 @@ func handleLogin(dto Request) {
 	if len(users) != 1 {
 		dto.ResponseChannel <- Response{
 			Id:      dto.Id,
-			Status:  "ERROR",
+			Status:  http.StatusBadRequest,
 			Message: fmt.Sprintf("user with username '%s' does not exist", dto.Username),
 			Token:   "",
 		}
@@ -73,7 +75,7 @@ func handleLogin(dto Request) {
 	if !sucess {
 		dto.ResponseChannel <- Response{
 			Id:      dto.Id,
-			Status:  "ERROR",
+			Status:  http.StatusUnauthorized,
 			Message: fmt.Sprintf("Password for user '%s' does not match", dto.Username),
 			Token:   "",
 		}
@@ -82,7 +84,7 @@ func handleLogin(dto Request) {
 	// TODO generate auth token and save to redis
 	dto.ResponseChannel <- Response{
 		Id:      dto.Id,
-		Status:  "SUCCESS",
+		Status:  http.StatusOK,
 		Message: fmt.Sprintf("Login for user '%s' successful", dto.Username),
 		Token:   "tbd",
 	}
