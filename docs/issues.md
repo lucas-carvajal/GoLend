@@ -4,17 +4,17 @@
 
 - GB-4: Set up ClaimManagementService
 - GB-5: Set up handler methods for RequestHandler to dispatch to
+- GB-7: Set up proper token management 
 - GB-6: Add tests
 
 
 ### In progress
 
-- GB-3: Set up UserManagementService
-  - Implement Handlers
-  - Set up auth token?
+- GB-8: Set up fake token service
 
 
 ### Done
 
 - GB-1: Set up GoBank server file to listen to incoming requests
 - GB-2: Set up RequestsHandler file
+- GB-3: Set up UserManagementService
