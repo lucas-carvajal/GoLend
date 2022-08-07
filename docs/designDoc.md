@@ -48,8 +48,9 @@ Different service classes take requests through channels from the handlers and m
 - `/claim` file a new claim
 - `/claim/<id>/approve` approve a claim
 - `/claim/<id>/deny` deny a claim
-- `/claim/<id>/settleRequest` ask to settle a claim
-- `/claim/<id>/settle` settle a claim
+- `/claim/<id>/requestSettlement` ask to settle a claim
+- `/claim/<id>/acceptSettlement` settle a claim
+- `/claim/<id>/denySettlement` deny settlement of a claim
 - `/claim/<id>/deadline` set deadline
 - `/claim/<id>/interest` set interest
 

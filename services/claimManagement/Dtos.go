@@ -4,10 +4,11 @@ type action string
 
 const (
 	CREATE            action = "CREATE"
-	APPROVE                  = "APPROVE"
+	ACCEPT                   = "ACCEPT"
 	DENY                     = "DENY"
 	REQUESTSETTLEMENT        = "REQUESTSETTLEMENT"
 	ACCEPTSETTLEMENT         = "ACCEPTSETTLEMENT"
+	DENYSETTLEMENT           = "DENYSETTLEMENT"
 	DEADLINE                 = "DEADLINE"
 	INTEREST                 = "INTEREST"
 )

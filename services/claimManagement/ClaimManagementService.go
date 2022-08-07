@@ -28,10 +28,11 @@ func run() {
 	for req := range channel {
 		switch req.Action {
 		case CREATE:
-		case APPROVE:
+		case ACCEPT:
 		case DENY:
 		case REQUESTSETTLEMENT:
 		case ACCEPTSETTLEMENT:
+		case DENYSETTLEMENT:
 		case DEADLINE:
 		case INTEREST:
 		}
