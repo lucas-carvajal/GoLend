@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"fmt"
 	"github.com/go-sql-driver/mysql"
+	"gobank.com/services/tokenManagement"
 	"gobank.com/services/userManagement"
 )
 
@@ -16,7 +17,8 @@ func main() {
 		return
 	}
 
-	userManagementServiceChannel := userManagement.Init(db)
+	tokenManagementServiceChannel := tokenManagement.Init()
+	userManagementServiceChannel := userManagement.Init(db, tokenManagementServiceChannel)
 	//TODO initialize ClaimManagementService
 
 	runServer(userManagementServiceChannel)
