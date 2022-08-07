@@ -80,7 +80,7 @@ func handleLogin(dto Request) {
 		}
 		return
 	}
-	// TODO generate auth token and save to redis
+	// TODO generate auth token and save to redis by using TokenManagementService
 	dto.ResponseChannel <- Response{
 		Id:      dto.Id,
 		Status:  http.StatusOK,
