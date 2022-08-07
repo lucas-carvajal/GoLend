@@ -8,7 +8,6 @@ const (
 )
 
 type Request struct {
-	Id              int
 	Command         userManagementCommand
 	Username        string
 	Email           string
@@ -18,7 +17,6 @@ type Request struct {
 }
 
 type Response struct {
-	Id      int
 	Status  int
 	Message string
 	Token   string

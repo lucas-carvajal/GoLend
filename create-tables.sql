@@ -14,11 +14,14 @@ CREATE TABLE users (
 
 CREATE TABLE loans (
     id          INT AUTO_INCREMENT NOT NULL,
+    title       VARCHAR(256) NOT NULL,
+    description VARCHAR(256),
     fromUser    VARCHAR(256) NOT NULL,
     toUser      VARCHAR(256) NOT NULL,
     date        DATE NOT NULL,
     amount      INT NOT NULL,
     interest    INT,
+    deadline    DATE,
     status      VARCHAR(256),
     PRIMARY KEY (`id`),
     UNIQUE (id),

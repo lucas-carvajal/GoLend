@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"gobank.com/services/userManagement"
 	"gobank.com/util"
-	"math/rand"
 	"net/http"
 	"strings"
 )
@@ -23,7 +22,6 @@ func handleSignup(
 
 	responseChannel := make(chan userManagement.Response)
 	userMgmChan <- userManagement.Request{
-		Id:              rand.Intn(1000000),
 		Command:         "SIGNUP",
 		Username:        username,
 		Email:           email,
@@ -54,7 +52,6 @@ func handleLogin(
 
 	responseChannel := make(chan userManagement.Response)
 	userMgmChan <- userManagement.Request{
-		Id:              rand.Intn(1000000),
 		Command:         "LOGIN",
 		Username:        username,
 		Email:           email,

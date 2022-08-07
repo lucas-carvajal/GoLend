@@ -32,7 +32,7 @@ func setUpAndTestDBConnection() (*sql.DB, error) {
 		Passwd: "",
 		Net:    "tcp",
 		Addr:   "127.0.0.1:3306",
-		DBName: "gobank",
+		DBName: "golend",
 	}
 	// Get a database handle.
 	var err error
