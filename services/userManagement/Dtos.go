@@ -16,3 +16,10 @@ type Request struct {
 	Token           string
 	ResponseChannel chan Response
 }
+
+type Response struct {
+	Id      int
+	Status  int
+	Message string
+	Token   string
+}
