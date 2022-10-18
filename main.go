@@ -19,7 +19,7 @@ func main() {
 
 	tokenManagementServiceChannel := tokenManagement.Init()
 	userManagementServiceChannel := userManagement.Init(db, tokenManagementServiceChannel)
-	//TODO initialize ClaimManagementService
+	//TODO GB-4: initialize ClaimManagementService
 
 	runServer(userManagementServiceChannel)
 }

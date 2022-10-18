@@ -21,7 +21,7 @@ func run() {
 }
 
 func handleTokenRequest(req Request) {
-	// TODO get token values from redis, return as response to channel or send error
+	// TODO GB-7: get token values from redis, return as response to channel or send error
 
 	req.ResponseChannel <- Response{
 		OK:       true,

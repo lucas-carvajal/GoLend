@@ -1,6 +1,6 @@
 package claimManagement
 
-// TODO define lifecycle of claims
+// TODO TODO TODO define lifecycle of claims
 
 func handleCreate(req Request) {
 	// TODO create new request

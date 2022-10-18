@@ -1,6 +1,6 @@
 package main
 
-//TODO can be deleted later on
+//TODO GB-8: can be deleted later on
 
 import (
 	"database/sql"

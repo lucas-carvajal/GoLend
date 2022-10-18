@@ -73,7 +73,7 @@ func handleLogin(req Request) {
 		}
 		return
 	}
-	// TODO generate auth token and save to redis by using TokenManagementService
+	// TODO GB-7: generate auth token and save to redis by using TokenManagementService
 	req.ResponseChannel <- Response{
 		Status:  http.StatusOK,
 		Message: fmt.Sprintf("Login for user '%s' successful", req.Username),

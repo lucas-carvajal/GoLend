@@ -78,7 +78,7 @@ func handleClaims(
 		return s != ""
 	})
 
-	//TODO remove
+	//TODO GB-8: remove
 	fmt.Println("===")
 	fmt.Printf("route \"/claim*\" - URL parts: %s\n", urlParts)
 
@@ -126,12 +126,12 @@ func handleClaims(
 			fmt.Println("/claim/{}/interest route")
 			return
 		default:
-			// TODO return error message
+			// TODO GB-8: return error message
 			fmt.Println("ERROR")
 			return
 		}
 	default:
-		// TODO return error message
+		// TODO GB-8: return error message
 		fmt.Println("ERROR")
 		return
 	}
