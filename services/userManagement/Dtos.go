@@ -8,11 +8,16 @@ const (
 )
 
 type Request struct {
-	Id              int
 	Command         userManagementCommand
 	Username        string
 	Email           string
 	Password        string
 	Token           string
 	ResponseChannel chan Response
+}
+
+type Response struct {
+	Status  int
+	Message string
+	Token   string
 }

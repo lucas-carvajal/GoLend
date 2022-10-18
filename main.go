@@ -19,7 +19,7 @@ func main() {
 
 	tokenManagementServiceChannel := tokenManagement.Init()
 	userManagementServiceChannel := userManagement.Init(db, tokenManagementServiceChannel)
-	//TODO initialize ClaimManagementService
+	//TODO GB-4: initialize ClaimManagementService
 
 	runServer(userManagementServiceChannel)
 }
@@ -32,7 +32,7 @@ func setUpAndTestDBConnection() (*sql.DB, error) {
 		Passwd: "",
 		Net:    "tcp",
 		Addr:   "127.0.0.1:3306",
-		DBName: "gobank",
+		DBName: "golend",
 	}
 	// Get a database handle.
 	var err error

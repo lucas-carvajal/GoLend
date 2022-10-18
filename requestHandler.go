@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"gobank.com/services/userManagement"
 	"gobank.com/util"
-	"math/rand"
 	"net/http"
 	"strings"
 )
@@ -23,7 +22,6 @@ func handleSignup(
 
 	responseChannel := make(chan userManagement.Response)
 	userMgmChan <- userManagement.Request{
-		Id:              rand.Intn(1000000),
 		Command:         "SIGNUP",
 		Username:        username,
 		Email:           email,
@@ -54,7 +52,6 @@ func handleLogin(
 
 	responseChannel := make(chan userManagement.Response)
 	userMgmChan <- userManagement.Request{
-		Id:              rand.Intn(1000000),
 		Command:         "LOGIN",
 		Username:        username,
 		Email:           email,
@@ -81,7 +78,7 @@ func handleClaims(
 		return s != ""
 	})
 
-	//TODO remove
+	//TODO GB-8: remove
 	fmt.Println("===")
 	fmt.Printf("route \"/claim*\" - URL parts: %s\n", urlParts)
 
@@ -129,12 +126,12 @@ func handleClaims(
 			fmt.Println("/claim/{}/interest route")
 			return
 		default:
-			// TODO return error message
+			// TODO GB-8: return error message
 			fmt.Println("ERROR")
 			return
 		}
 	default:
-		// TODO return error message
+		// TODO GB-8: return error message
 		fmt.Println("ERROR")
 		return
 	}

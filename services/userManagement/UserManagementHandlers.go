@@ -5,86 +5,78 @@ import (
 	"net/http"
 )
 
-func handleSignup(dto Request) {
-	users := getUsersByEmail(dto.Email)
+func handleSignup(req Request) {
+	users := getUsersByEmail(req.Email)
 	if len(users) != 0 {
-		dto.ResponseChannel <- Response{
-			Id:      dto.Id,
+		req.ResponseChannel <- Response{
 			Status:  http.StatusBadRequest,
-			Message: fmt.Sprintf("user with email '%s' already exists", dto.Email),
+			Message: fmt.Sprintf("user with email '%s' already exists", req.Email),
 			Token:   "",
 		}
 		return
 	}
-	users = getUsersByUsername(dto.Username)
+	users = getUsersByUsername(req.Username)
 	if len(users) != 0 {
-		dto.ResponseChannel <- Response{
-			Id:      dto.Id,
+		req.ResponseChannel <- Response{
 			Status:  http.StatusBadRequest,
-			Message: fmt.Sprintf("user with username '%s' already exists", dto.Username),
+			Message: fmt.Sprintf("user with username '%s' already exists", req.Username),
 			Token:   "",
 		}
 		return
 	}
 	success := insertUser(user{
-		username: dto.Username,
-		email:    dto.Email,
-		password: dto.Password,
+		username: req.Username,
+		email:    req.Email,
+		password: req.Password,
 	})
 	if !success {
-		dto.ResponseChannel <- Response{
-			Id:      dto.Id,
+		req.ResponseChannel <- Response{
 			Status:  http.StatusInternalServerError,
-			Message: fmt.Sprintf("user with email '%s' could not be saved", dto.Email),
+			Message: fmt.Sprintf("user with email '%s' could not be saved", req.Email),
 			Token:   "",
 		}
 		return
 	}
-	dto.ResponseChannel <- Response{
-		Id:      dto.Id,
+	req.ResponseChannel <- Response{
 		Status:  http.StatusOK,
-		Message: fmt.Sprintf("user with email '%s' successfully created", dto.Email),
+		Message: fmt.Sprintf("user with email '%s' successfully created", req.Email),
 		Token:   "",
 	}
 }
 
-func handleLogin(dto Request) {
-	users := getUsersByEmail(dto.Email)
+func handleLogin(req Request) {
+	users := getUsersByEmail(req.Email)
 	if len(users) != 1 {
-		dto.ResponseChannel <- Response{
-			Id:      dto.Id,
+		req.ResponseChannel <- Response{
 			Status:  http.StatusBadRequest,
-			Message: fmt.Sprintf("user with email '%s' does not exist", dto.Email),
+			Message: fmt.Sprintf("user with email '%s' does not exist", req.Email),
 			Token:   "",
 		}
 		return
 	}
-	users = getUsersByUsername(dto.Username)
+	users = getUsersByUsername(req.Username)
 	if len(users) != 1 {
-		dto.ResponseChannel <- Response{
-			Id:      dto.Id,
+		req.ResponseChannel <- Response{
 			Status:  http.StatusBadRequest,
-			Message: fmt.Sprintf("user with username '%s' does not exist", dto.Username),
+			Message: fmt.Sprintf("user with username '%s' does not exist", req.Username),
 			Token:   "",
 		}
 		return
 	}
-	sucess := users[0].password == dto.Password
+	success := users[0].password == req.Password
 
-	if !sucess {
-		dto.ResponseChannel <- Response{
-			Id:      dto.Id,
+	if !success {
+		req.ResponseChannel <- Response{
 			Status:  http.StatusUnauthorized,
-			Message: fmt.Sprintf("Password for user '%s' does not match", dto.Username),
+			Message: fmt.Sprintf("Password for user '%s' does not match", req.Username),
 			Token:   "",
 		}
 		return
 	}
-	// TODO generate auth token and save to redis by using TokenManagementService
-	dto.ResponseChannel <- Response{
-		Id:      dto.Id,
+	// TODO GB-7: generate auth token and save to redis by using TokenManagementService
+	req.ResponseChannel <- Response{
 		Status:  http.StatusOK,
-		Message: fmt.Sprintf("Login for user '%s' successful", dto.Username),
+		Message: fmt.Sprintf("Login for user '%s' successful", req.Username),
 		Token:   "tbd",
 	}
 }
