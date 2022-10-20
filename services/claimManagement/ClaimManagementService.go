@@ -28,13 +28,21 @@ func run() {
 	for req := range channel {
 		switch req.Action {
 		case CREATE:
-		case ACCEPT:
-		case DENY:
+			handleCreate(req)
+		case ACCEPTCLAIM:
+			handleAcceptClaim(req)
+		case DENYCLAIM:
+			handleDenyClaim(req)
 		case REQUESTSETTLEMENT:
+			handleRequestSettlement(req)
 		case ACCEPTSETTLEMENT:
+			handleAcceptSettlement(req)
 		case DENYSETTLEMENT:
+			handleDenySettlement(req)
 		case DEADLINE:
+			handleSetDeadline(req)
 		case INTEREST:
+			handleSetInterest(req)
 		}
 	}
 	fmt.Println("[ClaimManagementService Channel] Closed")

@@ -1,9 +1,20 @@
 package claimManagement
 
-// TODO TODO TODO define lifecycle of claims
+// The 'Loans' board contains the general information about a loan
+//
+// Loans - Lifecycle
+// --- --- --- --- ---
+// Loan claim created -> PENDING
+// Loan claim accepted -> OPEN
+// Loan claim denied -> DENIED
+// ---
+// Settlement for Loan claim requested -> SETTLEMENT_REQUESTED
+// Settlement for Loan claim accepted -> SETTLED
+// Settlement for Loan claim denied -> OPEN
 
 func handleCreate(req Request) {
 	// TODO create new request
+	// check if already exists, if yes and state:DENIED -> reopen
 }
 
 func handleAcceptClaim(req Request) {

@@ -29,29 +29,6 @@ CREATE TABLE loans (
     FOREIGN KEY (toUser) REFERENCES users(username)
 );
 
-CREATE TABLE openBoard (
-    openID      INT AUTO_INCREMENT NOT NULL,
-    fromUser    VARCHAR(256) NOT NULL,
-    toUser      VARCHAR(256) NOT NULL,
-    loan        INT NOT NUlL,
-    PRIMARY KEY (`openID`),
-    FOREIGN KEY (fromUser) REFERENCES users(username),
-    FOREIGN KEY (toUser) REFERENCES users(username),
-    FOREIGN KEY (loan) REFERENCES loans(id)
-);
-
-CREATE TABLE closeBoard (
-    closeID     INT AUTO_INCREMENT NOT NULL,
-    fromUser    VARCHAR(256) NOT NULL,
-    toUser      VARCHAR(256) NOT NULL,
-    loan        INT NOT NUlL,
-    PRIMARY KEY (`closeID`),
-    FOREIGN KEY (fromUser) REFERENCES users(username),
-    FOREIGN KEY (toUser) REFERENCES users(username),
-    FOREIGN KEY (loan) REFERENCES loans(id)
-);
-
-
 -- test populate database
 
 INSERT INTO users

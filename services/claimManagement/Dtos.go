@@ -4,8 +4,8 @@ type action string
 
 const (
 	CREATE            action = "CREATE"
-	ACCEPT                   = "ACCEPT"
-	DENY                     = "DENY"
+	ACCEPTCLAIM              = "ACCEPTCLAIM"
+	DENYCLAIM                = "DENYCLAIM"
 	REQUESTSETTLEMENT        = "REQUESTSETTLEMENT"
 	ACCEPTSETTLEMENT         = "ACCEPTSETTLEMENT"
 	DENYSETTLEMENT           = "DENYSETTLEMENT"
