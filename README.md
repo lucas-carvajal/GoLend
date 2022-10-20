@@ -20,4 +20,8 @@ and their overall balance.
 * Go `database/sql` library
 
 ### Disclaimers
-No disclaimers yet  
+Security was not a focus in this project as the main purpose
+was to build an API in Go and have some fun along the way.
+As such, for example arguments for DB queries are not 
+sanitized (and thus subsceptible to SQL injections),
+so it is not advised to use this in any kind of serious application.

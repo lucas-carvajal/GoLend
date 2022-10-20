@@ -82,6 +82,7 @@ func handleClaims(
 	fmt.Println("===")
 	fmt.Printf("route \"/claim*\" - URL parts: %s\n", urlParts)
 
+	// TODO GB-9
 	switch {
 	case urlParts[0] == "claim" && len(urlParts) == 1:
 		// claim route "/claim" -> file a claim

@@ -3,6 +3,7 @@
 ### Backlog
 
 - GB-5: Set up handler methods for RequestHandler to dispatch to
+- GB-9: Connect requestHandler to claimManagementService
 - GB-7: Set up proper token management 
 - GB-6: Add tests
 - GB-8: Clean up unused code
