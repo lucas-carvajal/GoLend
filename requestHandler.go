@@ -1,9 +1,12 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
+	"gobank.com/services/claimManagement"
 	"gobank.com/services/userManagement"
 	"gobank.com/util"
+	"io/ioutil"
 	"net/http"
 	"strings"
 )
@@ -72,6 +75,7 @@ func handleClaims(
 	w http.ResponseWriter,
 	r *http.Request,
 	userMgmChan chan userManagement.Request,
+	claimMgmChan chan claimManagement.Request,
 ) {
 	urlParts := strings.Split(r.URL.String(), "/")
 	urlParts = util.Filter(urlParts, func(s string) bool {
@@ -82,12 +86,42 @@ func handleClaims(
 	fmt.Println("===")
 	fmt.Printf("route \"/claim*\" - URL parts: %s\n", urlParts)
 
+	body, err := ioutil.ReadAll(r.Body)
+	if err != nil {
+		// todo return error
+		panic(err)
+	}
+
+	var newLoan claimManagement.Loan
+	err = json.Unmarshal(body, &newLoan)
+	if err != nil {
+		// todo return error
+		panic(err)
+	}
+
 	// TODO GB-9
 	switch {
 	case urlParts[0] == "claim" && len(urlParts) == 1:
 		// claim route "/claim" -> file a claim
 		doSomething(w, r)
 		fmt.Println("/claim route")
+
+		responseChannel := make(chan claimManagement.Response)
+		claimMgmChan <- claimManagement.Request{
+			Action:          "CREATE",
+			Token:           "",
+			ResponseChannel: responseChannel,
+			Loan:            newLoan,
+		}
+
+		response := <-responseChannel
+		switch {
+		case response.Status > 399:
+			//return positive response
+		case response.Status < 210:
+			//return negative response
+		}
+
 		return
 	case urlParts[0] == "claim" && len(urlParts) > 1:
 		switch {
@@ -140,6 +174,7 @@ func handleClaims(
 
 func doSomething(w http.ResponseWriter, r *http.Request) {
 	fmt.Printf("Call to %s\n", r.URL.String())
+
 }
 
 func sendSuccessResponse(w http.ResponseWriter, statusCode int) {

@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"gobank.com/services/claimManagement"
 	"gobank.com/services/userManagement"
 	"log"
 	"net/http"
@@ -9,7 +10,7 @@ import (
 
 const port int = 8080
 
-func runServer(userMgmChan chan userManagement.Request) {
+func runServer(userMgmChan chan userManagement.Request, claimMgmChan chan claimManagement.Request) {
 	http.HandleFunc("/signup", func(w http.ResponseWriter, r *http.Request) {
 		handleSignup(w, r, userMgmChan)
 	})
@@ -17,10 +18,10 @@ func runServer(userMgmChan chan userManagement.Request) {
 		handleLogin(w, r, userMgmChan)
 	})
 	http.HandleFunc("/claim", func(w http.ResponseWriter, r *http.Request) {
-		handleClaims(w, r, userMgmChan)
+		handleClaims(w, r, userMgmChan, claimMgmChan)
 	})
 	http.HandleFunc("/claim/", func(w http.ResponseWriter, r *http.Request) {
-		handleClaims(w, r, userMgmChan)
+		handleClaims(w, r, userMgmChan, claimMgmChan)
 	})
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		// TODO

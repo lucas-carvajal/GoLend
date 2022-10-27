@@ -16,13 +16,8 @@ const (
 type Request struct {
 	Action          action
 	Token           string
-	responseChannel chan Response
-	Id              int
-	Title           string
-	Description     string
-	toUsername      string
-	amount          uint64
-	interest        uint64
+	ResponseChannel chan Response
+	Loan            Loan
 }
 
 type Response struct {

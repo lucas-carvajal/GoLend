@@ -26,6 +26,9 @@ func Init(
 
 func run() {
 	for req := range channel {
+
+		// TODO check authentication
+
 		switch req.Action {
 		case CREATE:
 			handleCreate(req)
